@@ -4,13 +4,13 @@ import { InjectModel } from '@nestjs/sequelize'
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import * as bcrypt from 'bcrypt';
-import {JwtService} from '@nestjs/jwt'
+import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class UserService {
 
   constructor(@InjectModel(User) private readonly userModel: typeof User,
-              private jwtService: JwtService) { }
+    private jwtService: JwtService) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const hash = await bcrypt.hash(createUserDto.password, 10);
@@ -35,6 +35,7 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
+
     const user = await this.userModel.findOne({
       where: {
         userId: id
@@ -74,11 +75,13 @@ export class UserService {
       throw new BadRequestException("Invalid credentials!");
     }
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
       throw new BadRequestException("Invalid credentials!");
     }
-    
-    const jwt = await this.jwtService.signAsync({id: user.id})
-    return jwt;
+
+    const jwt = await this.jwtService.signAsync({ id: user.userId })
+
+    return { accessToken: jwt };
   }
 }

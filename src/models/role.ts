@@ -1,7 +1,7 @@
 import { AutoIncrement, Column, Model, PrimaryKey, Table } from "sequelize-typescript";
 
 @Table
-export class Role extends Model{
+export class Rolesss extends Model{
     @PrimaryKey
     @AutoIncrement
     @Column
