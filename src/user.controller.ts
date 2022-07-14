@@ -8,11 +8,12 @@ import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Post('register')
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN)q
   create(@Body() createUserDto: CreateUserDto) {
+    console.log('createUserDto',createUserDto)
     return this.userService.create(createUserDto);
   }
 

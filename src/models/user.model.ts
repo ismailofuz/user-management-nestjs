@@ -20,5 +20,5 @@ export class User extends Model {
     password: string;
 
     @Column
-    role: Role[];
+    role: Role;
 }

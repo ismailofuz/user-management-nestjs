@@ -31,7 +31,11 @@ export class UserService {
   }
 
   findAll() {
-    return this.userModel.findAll();
+    return this.userModel.findAll({
+      order: [
+        ['userId', 'ASC']
+      ]
+    })
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
